@@ -30,11 +30,12 @@ public abstract class ImmobilierPostMapper {
     @Mapping(target = "publicationDuration", expression = "java(getDuration(post))")
     @Mapping(target = "adresse", expression = "java(post.getImmobilier().getAdresse())")
     @Mapping(target = "city", expression = "java(post.getImmobilier().getCity().getName())")
+    @Mapping(target = "contact", source = "post.contact")
+    @Mapping(target = "superficie", source = "post.superficie")
     public abstract ImmobilierPostResponse mapToDto(ImmobilierPost post);
 
     @Mapping(target = "title", source = "postRequest.title")
-    // @Mapping(target = "creationDate", expression =
-    // "java(java.time.Instant.now())")
+    @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "immobilier", expression = "java(createImmobilier(postRequest))")
     @Mapping(target = "contact", source = "postRequest.contact")
     @Mapping(target = "superficie", source = "postRequest.superficie")

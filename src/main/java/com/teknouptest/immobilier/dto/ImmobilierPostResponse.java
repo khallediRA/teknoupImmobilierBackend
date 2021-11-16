@@ -18,5 +18,7 @@ public class ImmobilierPostResponse {
     private String publicationDuration;
     private String adresse;
     private String city;
+    private int contact;
+    private float superficie;
 
 }
