@@ -11,10 +11,9 @@ import com.teknouptest.immobilier.Repository.ImmobilierRepository;
 import com.teknouptest.immobilier.dto.ImmobilierPostRequest;
 import com.teknouptest.immobilier.dto.ImmobilierPostResponse;
 import com.teknouptest.immobilier.dto.ImmobilierPostUpdateDto;
-import com.teknouptest.immobilier.exception.ImmobilierNotFoundException;
+
 import com.teknouptest.immobilier.exception.PostNotFoundException;
-import com.teknouptest.immobilier.mapper.CityMapper;
-import com.teknouptest.immobilier.mapper.ImmobilierMapper;
+
 import com.teknouptest.immobilier.mapper.ImmobilierPostMapper;
 import com.teknouptest.immobilier.model.City;
 import com.teknouptest.immobilier.model.Immobilier;
@@ -24,10 +23,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
+
 @Transactional
 @AllArgsConstructor
 
@@ -37,9 +34,8 @@ public class ImmobilierPostService {
     private final ImmobilierPostMapper immobilierPostMapper;
     private final CityService cityService;
     private final CityRepository cityRepository;
-    private final ImmobilierRepository immobilierRepository;
+
     private final ImmobilierService immobilierService;
-    private final ImmobilierMapper immobilierMapper;
 
     public List<ImmobilierPostResponse> getAllImmobilierPost() {
         return immobilierPostRepository.findAll().stream().map(immobilierPostMapper::mapToDto)

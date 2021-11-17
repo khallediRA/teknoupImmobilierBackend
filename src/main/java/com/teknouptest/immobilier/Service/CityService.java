@@ -7,7 +7,6 @@ import com.teknouptest.immobilier.model.City;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Service
 @AllArgsConstructor
