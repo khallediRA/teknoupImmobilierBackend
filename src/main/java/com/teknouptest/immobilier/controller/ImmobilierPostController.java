@@ -5,12 +5,14 @@ import java.util.List;
 import com.teknouptest.immobilier.Service.ImmobilierPostService;
 import com.teknouptest.immobilier.dto.ImmobilierPostRequest;
 import com.teknouptest.immobilier.dto.ImmobilierPostResponse;
+import com.teknouptest.immobilier.dto.ImmobilierPostUpdateDto;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +40,12 @@ public class ImmobilierPostController {
         postService.save(postRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
 
+    }
+
+    @PutMapping("/updateImmobilierPost")
+    public ResponseEntity<Void> updatePost(@RequestBody ImmobilierPostUpdateDto immobilierPostUpdateDto) {
+        postService.updateImmoblierPost(immobilierPostUpdateDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

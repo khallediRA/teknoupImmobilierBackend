@@ -37,5 +37,6 @@ public class Immobilier {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cityId", referencedColumnName = "id")
     private City city;
+    private float superficie;
 
 }

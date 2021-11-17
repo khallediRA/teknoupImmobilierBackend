@@ -5,6 +5,7 @@ import com.teknouptest.immobilier.Repository.CityRepository;
 import com.teknouptest.immobilier.Repository.ImmobilierRepository;
 import com.teknouptest.immobilier.dto.ImmobilierPostRequest;
 import com.teknouptest.immobilier.dto.ImmobilierPostResponse;
+import com.teknouptest.immobilier.dto.ImmobilierPostUpdateDto;
 import com.teknouptest.immobilier.model.City;
 import com.teknouptest.immobilier.model.Immobilier;
 import com.teknouptest.immobilier.model.ImmobilierPost;
@@ -31,34 +32,24 @@ public abstract class ImmobilierPostMapper {
     @Mapping(target = "adresse", expression = "java(post.getImmobilier().getAdresse())")
     @Mapping(target = "city", expression = "java(post.getImmobilier().getCity().getName())")
     @Mapping(target = "contact", source = "post.contact")
-    @Mapping(target = "superficie", source = "post.superficie")
+    @Mapping(target = "superficie", source = "immobilier.superficie")
     public abstract ImmobilierPostResponse mapToDto(ImmobilierPost post);
 
     @Mapping(target = "title", source = "postRequest.title")
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
-    @Mapping(target = "immobilier", expression = "java(createImmobilier(postRequest))")
+    @Mapping(target = "immobilier", source = "immobilier")
     @Mapping(target = "contact", source = "postRequest.contact")
-    @Mapping(target = "superficie", source = "postRequest.superficie")
-    public abstract ImmobilierPost dtoToModel(ImmobilierPostRequest postRequest);
+    public abstract ImmobilierPost dtoToModel(ImmobilierPostRequest postRequest, Immobilier immobilier);
+
+    @Mapping(target="id", source = "immobilierPostUpdateDto.id")
+    @Mapping(target = "title", source = "immobilierPostUpdateDto.title")
+    @Mapping(target = "immobilier", source = "immobilier")
+    @Mapping(target = "contact", source = "immobilierPostUpdateDto.contact")
+    public abstract ImmobilierPost dtoUpateToModel(ImmobilierPostUpdateDto immobilierPostUpdateDto,
+            Immobilier immobilier);
 
     String getDuration(ImmobilierPost post) {
         return TimeAgo.using(post.getCreatedDate().toEpochMilli());
-    }
-
-    Immobilier createImmobilier(ImmobilierPostRequest postRequest) {
-        City city = cityRepository.findByNameAndCountryName(postRequest.getCityname(), postRequest.getCountryName())
-                .orElseGet(() -> {
-                    return createNewCity(postRequest.getCountryName(), postRequest.getCityname());
-                });
-        return immobilierRepository
-                .save(Immobilier.builder().adresse(postRequest.getAdresse()).description(postRequest.getDescription())
-                        .imageURL(postRequest.getImageUrl()).price(postRequest.getPrice()).city(city).build());
-
-    }
-
-    City createNewCity(String countryName, String cityName) {
-
-        return cityRepository.save(City.builder().countryName(countryName).name(cityName).build());
     }
 
 }

@@ -1,16 +1,14 @@
 package com.teknouptest.immobilier.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ImmobilierPostRequest {
-
+public class ImmobilierPostUpdateDto {
+    private Long id;
     private String title;
     private String description;
     private String imageUrl;
@@ -20,5 +18,4 @@ public class ImmobilierPostRequest {
     private String cityname;
     private int contact;
     private float superficie;
-
 }
