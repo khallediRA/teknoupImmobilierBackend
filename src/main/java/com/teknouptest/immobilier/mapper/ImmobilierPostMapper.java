@@ -22,8 +22,9 @@ public abstract class ImmobilierPostMapper {
     @Mapping(target = "price", expression = "java(post.getImmobilier().getPrice())")
     @Mapping(target = "publicationDuration", expression = "java(getDuration(post))")
     @Mapping(target = "adresse", expression = "java(post.getImmobilier().getAdresse())")
-    @Mapping(target = "city", expression = "java(post.getImmobilier().getCity().getName())")
+    @Mapping(target = "cityname", expression = "java(post.getImmobilier().getCity().getName())")
     @Mapping(target = "contact", source = "post.contact")
+    @Mapping(target = "countryname", expression = "java(post.getImmobilier().getCity().getCountryName())")
     @Mapping(target = "superficie", source = "immobilier.superficie")
     public abstract ImmobilierPostResponse mapToDto(ImmobilierPost post);
 
